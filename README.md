@@ -27,7 +27,6 @@ All the functionalities described on *Challenge description* section were implem
 
 The additional behaviours below were also implemented:
 
-- All the basic functionalities are accessible on the keyboard
 - The task lists is saved on localstorage
 
 ### Tools
@@ -40,7 +39,7 @@ The additional behaviours below were also implemented:
 
 1. Clone this repo.
 
-2. Run `npm install`.
+2. Run `npm i`.
 
 3. Run `npm start`.
 
