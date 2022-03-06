@@ -46,5 +46,5 @@ The additional behaviours below were also implemented:
 
 ## Demo 
 
-View [demo](https://frontendmentor-todo-app-react.vercel.app/).
+View [demo](https://hex909todoapp.netlify.app/).
 
