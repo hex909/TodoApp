@@ -1,38 +1,323 @@
-.App {
-  text-align: center;
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;300;400;500;600;700&display=swap");
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+:root {
+  --linear: linear-gradient(hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+  --active: hsl(220, 98%, 61%);
+  --mainHeading: hsl(0, 0%, 98%);
+  --transitionTime: 0.2s;
+  font-size: 18px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+main.light {
+  --mainBg: hsl(0, 0%, 98%);
+  --secondBg: hsl(300, 100%, 100%);
+  --color: hsl(225, 2%, 40%);
+  --colorGrey: hsla(240, 5%, 45%, 0.685);
+  --hover: hsl(235, 54%, 74%);
+  --borderColor: #e8e7eb;
+  --img: url("./images/bg-desktop-light.jpg");
+}
+main.dark {
+  --borderColor: #4f4f53;
+  --mainBg: hsl(235, 21%, 11%);
+  --secondBg: hsl(235, 24%, 19%);
+  --color: hsl(0, 0%, 98%);
+  --colorGrey: hsla(0, 23%, 77%, 0.685);
+  --colorHover: hsl(236, 33%, 92%);
+  --img: url("./images/bg-desktop-dark.jpg");
 }
 
-.App-header {
-  background-color: #282c34;
+main {
   min-height: 100vh;
+  width: 100%;
+  font-family: "Josefin Sans", sans-serif;
+  background-color: var(--mainBg);
+  overflow-x: hidden;
+  position: relative;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.header {
+  width: 100vw;
+  height: 300px;
+}
+
+.headerImgCon {
+  width: 100%;
+  height: 100%;
+  background-image: var(--img);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.body {
+  position: absolute;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 375px;
+  width: 100%;
+  max-width: 600px;
+  padding: 1.5rem;
+}
+.todos-header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 1.6rem;
+}
+
+.main-title {
+  color: var(--mainHeading);
+  font-size: 2.11rem;
+  letter-spacing: 16.6px;
+  font-weight: 700;
+}
+
+.theme-switch {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+#todos {
+  font-family: "Josefin Sans", sans-serif;
+  width: 100%;
+  height: 60px;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  padding-left: 73px;
+  font-size: 1.2rem;
+  background-color: var(--secondBg);
+  color: var(--color);
+  transition: background-color 0.3s ease-in-out;
+}
+
+#todos::placeholder {
+  color: var(--colorGrey);
+}
+
+.form-input {
+  position: relative;
+}
+
+.todos-input {
+  margin-bottom: 1.5rem;
+  box-shadow: 1px 1px 15px 0 rgba(0, 0, 0, 0.5);
+}
+
+.input-container::after {
+  content: "";
+  width: 27px;
+  height: 27px;
+  border: 3px solid var(--colorGrey);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 30px;
+  transform: translate(-50%, -50%);
+}
+
+.todos-items {
+  position: relative;
+  background-color: var(--secondBg);
+  border-radius: 5px 5px 0 0;
+  overflow-y: scroll;
+  height: 450px;
+  max-height: 450px;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  /* box-shadow: var(--boxShadow); */
+  box-shadow: 2px -1px 5px 0 rgba(0, 0, 0, 0.26),
+    -2px -1px 5px 0 rgba(0, 0, 0, 0.26);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.todos-items::-webkit-scrollbar {
+  display: none;
+}
+
+.todo-item {
+  padding: 2rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+
+.tickbox {
+  width: 27px;
+  height: 27px;
+  border: 3px solid var(--colorGrey);
+  border-radius: 50%;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.tickbox:hover {
+  border: 3px solid var(--active);
+}
+
+.complete .tickbox {
+  display: flex;
+  background-image: var(--linear);
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  border: none;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+.complete .todo-title {
+  text-decoration: line-through;
+  color: var(--colorGrey);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.todo-title {
+  margin-left: 0.5rem;
+  margin-right: auto;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: var(--color);
+}
+
+.closeBtn {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.todo-item:nth-child(1n) {
+  border-bottom: 2px solid var(--borderColor);
+}
+
+.filter-and-clear {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 0.8rem;
+  background-color: var(--secondBg);
+  color: hsl(230, 4%, 71%);
+  border-top: 2px solid hsla(240, 4.8%, 44.9%, 0.42);
+  height: 50px;
+  user-select: none;
+  border-radius: 0 0 5px 5px;
+  box-shadow: 2px -1px 5px 0 rgba(0, 0, 0, 0.26),
+    -2px 1px 5px 0 rgba(0, 0, 0, 0.26);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.items-left {
+  font-weight: 500;
+  color: var(--colorGrey);
+}
+
+.clearAll {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: var(--colorGrey);
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.clearAll:hover {
+  color: var(--color);
+}
+
+.filter {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.filter p {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.filter p:hover:not(.active) {
+  color: var(--color);
+}
+
+.active {
+  color: var(--active);
+}
+
+.mobile-filter .filter {
+  display: none;
+}
+
+p[class^="filter"]:not(.filter-completed) {
+  padding-right: 1rem;
+}
+
+.note {
+  color: var(--colorGrey);
+  text-align: center;
+  margin: 1.5rem 0;
+}
+.Messagecontainer {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  color: var(--colorGrey);
+  text-transform: capitalize;
+}
+
+@media (max-width: 560px) {
+  .header {
+    height: 200px;
   }
-  to {
-    transform: rotate(360deg);
+  #todos {
+    height: 50px;
+    align-items: center;
+  }
+
+  .input-container::after,
+  .tickbox {
+    width: 24px;
+    height: 24px;
+  }
+
+  .todo-item {
+    padding: 1rem;
+    height: 60px;
+  }
+
+  .main-title {
+    font-size: 1.3rem;
+    letter-spacing: 12.5px;
+  }
+
+  .filter-and-clear .filter {
+    display: none;
+  }
+
+  .mobile-filter .filter {
+    display: flex;
+    margin-top: 1.5rem;
+    color: var(--colorGrey);
+    background-color: var(--secondBg);
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: var(--boxShadow);
   }
 }

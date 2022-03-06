@@ -1,24 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect,  useState } from "react";
+import Todos from "./components/Todos";
+import './App.css'
 
 function App() {
+  const [isLight, setIsLight] =useState(true)
+
+  useEffect(() => {
+    if(!localStorage.getItem('theme')) {
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem('theme')) {
+        setIsLight(false)
+        localStorage.setItem("theme", 'dark')
+      }else {
+        localStorage.setItem("theme", 'light')
+      }
+    }
+
+    if(localStorage.getItem('theme') === 'light') {
+      setIsLight(true)
+    }else {
+      setIsLight(false)
+    }
+  },[])
+  
+  function changeLight() {
+    setIsLight(v => {
+      if (!v) {
+        localStorage.setItem("theme", 'light')
+      }else {
+        localStorage.setItem("theme", 'dark')
+      }
+      return !v
+    })
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <main className={`${isLight ?"light" : 'dark'}`}>
+      <header className="header">
+        <div className="headerImgCon">
+        </div>
       </header>
-    </div>
+      <section className="body">
+        <Todos isLight={isLight} changeLight={changeLight}/>
+      </section>
+    </main>
   );
 }
 
